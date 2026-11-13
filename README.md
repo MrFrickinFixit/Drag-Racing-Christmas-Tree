@@ -6,6 +6,18 @@ WPF reaction trainer for Windows and .NET 10. Run `dotnet run --project DragTree
 
 Choose Sportsman or Pro, then single-player or two-player mode. Optional racer names appear in result messages. Press Enter or click outside a name box after editing.
 
+## Free to use
+
+Drag Tree is free to download and use. No payment, subscription, or donation is required to use any feature. Optional donations help support continued development.
+
+This application is a practice tool, not calibrated track timing equipment. Display and input latency can affect results.
+
+## Support development
+
+If you enjoy Drag Tree and would like to support future updates, you can [donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=quickd92%40hotmail.com&item_name=Drag%20Tree%20development&currency_code=USD).
+
+Donations are completely optional. Drag Tree remains free to use whether or not you donate.
+
 ## Controls
 
 Use the **gear / Controls** button to choose each racer's key. Shift, Ctrl, Space, letters, digits, numpad digits, and arrows are available. Choose different keys for each racer. **Save controls** applies and stores preferences in `%LOCALAPPDATA%/DragTree/keys.json`; **Restore Shift defaults** selects Left Shift and Right Shift. Escape is reserved for cancellation. Keys cannot change while racers are staged.
