@@ -1,4 +1,4 @@
-<Window x:Class="DragTree.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Drag Tree • Reaction trainer" Width="1280" Height="960" MinWidth="1120" MinHeight="760" Background="#0C111B" Foreground="#E8EDF5" Focusable="True" PreviewMouseDown="OnPointerDown" PreviewKeyDown="OnKeyDown" PreviewKeyUp="OnKeyUp" Deactivated="OnDeactivated">
+<Window x:Class="DragTree.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Drag Tree • Reaction trainer" Icon="/DragTree;component/Assets/drag-tree.ico" Width="1280" Height="960" MinWidth="1120" MinHeight="760" Background="#0C111B" Foreground="#E8EDF5" Focusable="True" PreviewMouseDown="OnPointerDown" PreviewKeyDown="OnKeyDown" PreviewKeyUp="OnKeyUp" Deactivated="OnDeactivated">
   <Grid x:Name="RaceSurface" Focusable="True">
     <Grid.Background>
       <ImageBrush ImageSource="/DragTree;component/Assets/night-dragstrip.png" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>

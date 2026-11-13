@@ -1,9 +1,9 @@
 ; Build with installer/build.ps1. Inno Setup 6.3+ or 7 is supported.
 #ifndef AppVersion
-  #define AppVersion "1.0.1"
+  #define AppVersion "1.0.2"
 #endif
 #ifndef FileVersion
-  #define FileVersion "1.0.1.0"
+  #define FileVersion "1.0.2.0"
 #endif
 #ifndef PublishDir
   #error PublishDir must point to the self-contained publish directory.
@@ -29,6 +29,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0.19045
 WizardStyle=modern
+SetupIconFile=..\Assets\drag-tree.ico
 OutputDir={#InstallerOutputDir}
 OutputBaseFilename=DragTree-{#AppVersion}-win-x64-Setup
 Compression=lzma2

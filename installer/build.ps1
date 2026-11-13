@@ -46,6 +46,7 @@ foreach ($required in @('DragTree.exe', 'DragTree.dll', 'coreclr.dll', 'hostfxr.
     if (-not (Test-Path -LiteralPath (Join-Path $publish $required))) { throw "Missing published file: $required" }
 }
 Copy-Item -LiteralPath (Join-Path $repo 'README.md') -Destination (Join-Path $publish 'README.md')
+if (Test-Path -LiteralPath (Join-Path $repo 'docs')) { Copy-Item -LiteralPath (Join-Path $repo 'docs') -Destination (Join-Path $publish 'docs') -Recurse }
 $zip = Join-Path $OutputRoot "DragTree-$Version-win-x64.zip"
 Compress-Archive -Path (Join-Path $publish '*') -DestinationPath $zip -CompressionLevel Optimal
 & $IsccPath "/DAppVersion=$Version" "/DFileVersion=$numericVersion.0" "/DPublishDir=$publish" "/DInstallerOutputDir=$OutputRoot" (Join-Path $PSScriptRoot 'DragTree.iss')

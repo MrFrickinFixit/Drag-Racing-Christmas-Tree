@@ -1,5 +1,7 @@
 # Drag Tree
 
+![Drag Tree main window showing the night theme and two-player mode](docs/main-window.png)
+
 WPF reaction trainer for Windows and .NET 10. Run `dotnet run --project DragTree.csproj`.
 
 Choose Sportsman, Pro, or Top Fuel, then single-player or two-player mode. Optional racer names appear in result messages. Press Enter or click outside a name box after editing.
