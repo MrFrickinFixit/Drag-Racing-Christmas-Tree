@@ -38,6 +38,7 @@ internal static class Program
         void AdvanceStaging() => Call("UpdateStaging", Field<double[]>("stagingDue").Max());
         void Both() { Down(Key.LeftShift); Down(Key.RightShift); AdvanceStaging(); }
 
+        Check(Control<ComboBox>("TreeMode").Items.Count == 2, "Tree selector offers only Sportsman and Pro");
         Down(Key.RightShift);
         Check(!Field<bool>("active"), "Right Shift does not stage in single-player mode");
         Up(Key.RightShift);
@@ -116,7 +117,7 @@ internal static class Program
         Up(Key.LeftShift); Up(Key.RightShift);
         Check(!Field<bool>("awaitRelease") && Control<ComboBox>("TreeMode").IsEnabled, "Releasing after timeout rearms without launching");
 
-        foreach (var mode in new[] { 0, 1, 2 })
+        foreach (var mode in new[] { 0, 1 })
         {
             Control<ComboBox>("TreeMode").SelectedIndex = mode;
             Both();

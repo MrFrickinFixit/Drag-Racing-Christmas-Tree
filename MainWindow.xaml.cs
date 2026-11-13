@@ -24,7 +24,7 @@ public partial class MainWindow : Window
     private readonly double[] stagingDue = new double[2];
     private const double StagingHoldSeconds = 1.0;
     private static double TimestampSeconds => Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency;
-    private bool UsesProTree => TreeMode.SelectedIndex is 1 or 2;
+    private bool UsesProTree => TreeMode.SelectedIndex == 1;
     private double countdownStart, greenTime, interval;
     private int players = 1;
 
@@ -138,7 +138,6 @@ public partial class MainWindow : Window
         TimingInfo.Text = TreeMode.SelectedIndex switch
         {
             1 => "Pro: all ambers together → green after 0.400 s",
-            2 => "Top Fuel uses the Pro Tree: all ambers together → green after 0.400 s",
             _ => "Sportsman: amber 1 → 0.500 s → amber 2 → 0.500 s → amber 3 → 0.500 s → green"
         };
     }

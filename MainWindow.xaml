@@ -13,7 +13,7 @@
       </DockPanel>
       <Grid Margin="0,12,0,16">
         <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="20"/><ColumnDefinition/></Grid.ColumnDefinitions>
-        <StackPanel><TextBlock Text="TREE TYPE" Foreground="#94A4B9" Margin="0,0,0,6"/><ComboBox x:Name="TreeMode" SelectedIndex="0" SelectionChanged="TreeModeChanged"><ComboBoxItem Content="Sportsman Tree • 0.500 s sequential"/><ComboBoxItem Content="Pro Tree • 0.400 s simultaneous"/><ComboBoxItem Content="Top Fuel • 0.400 s Pro Tree"/></ComboBox></StackPanel>
+        <StackPanel><TextBlock Text="TREE TYPE" Foreground="#94A4B9" Margin="0,0,0,6"/><ComboBox x:Name="TreeMode" SelectedIndex="0" SelectionChanged="TreeModeChanged"><ComboBoxItem Content="Sportsman Tree • 0.500 s sequential"/><ComboBoxItem Content="Pro Tree • 0.400 s simultaneous"/></ComboBox></StackPanel>
         <StackPanel Grid.Column="2"><TextBlock Text="PLAYERS" Foreground="#94A4B9" Margin="0,0,0,6"/><ComboBox x:Name="PlayerMode" SelectedIndex="0" SelectionChanged="PlayerModeChanged"><ComboBoxItem Content="Single player"/><ComboBoxItem Content="Two players • head to head"/></ComboBox></StackPanel>
       </Grid>
     </StackPanel>
@@ -126,7 +126,7 @@
       <Button x:Name="StageButton" Content="Cancel / reset • Esc" Click="StageClicked" HorizontalAlignment="Center" MinWidth="240"/>
       <TextBlock x:Name="KeysHelp" Text="Hold Left Shift: player 1 stage   •   Hold Right Shift: player 2 stage   •   Release: launch   •   Esc: cancel" Foreground="#94A4B9" HorizontalAlignment="Center" Margin="0,4,0,6"/>
       <TextBlock x:Name="TimingInfo" Text="Sportsman: 500 ms between bulbs" Foreground="#94A4B9" FontSize="12" HorizontalAlignment="Center" Margin="0,2,0,6"/>
-      <TextBlock Text="Perfect RT: Sportsman 0.500 s • Pro / Top Fuel 0.400 s. Before green = red light. Display and input latency affect results." Foreground="#7E91AA" FontSize="11" HorizontalAlignment="Center"/>
+      <TextBlock Text="Perfect RT: Sportsman 0.500 s • Pro 0.400 s. Before green = red light. Display and input latency affect results." Foreground="#7E91AA" FontSize="11" HorizontalAlignment="Center"/>
     </StackPanel></Border>    <Grid x:Name="SettingsOverlay" Grid.RowSpan="3" Panel.ZIndex="20" Visibility="Collapsed" Background="#BB03060D">
       <Border Width="530" MaxHeight="650" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#F5101B2A" BorderBrush="#658EA8" BorderThickness="1" CornerRadius="18" Padding="30">
         <StackPanel>

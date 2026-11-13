@@ -1,9 +1,9 @@
 ; Build with installer/build.ps1. Inno Setup 6.3+ or 7 is supported.
 #ifndef AppVersion
-  #define AppVersion "1.0.2"
+  #define AppVersion "1.0.3"
 #endif
 #ifndef FileVersion
-  #define FileVersion "1.0.2.0"
+  #define FileVersion "1.0.3.0"
 #endif
 #ifndef PublishDir
   #error PublishDir must point to the self-contained publish directory.
