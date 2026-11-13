@@ -14,7 +14,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer timer = new(DispatcherPriority.Render) { Interval = TimeSpan.FromMilliseconds(2) };
     private readonly Stopwatch clock = new();
     private RawShiftInput? rawShiftInput;
-    private readonly DispatcherTimer bannerTimer = new() { Interval = TimeSpan.FromSeconds(2) };
+    private readonly DispatcherTimer bannerTimer = new() { Interval = TimeSpan.FromSeconds(3) };
     private readonly List<double>[] cleanRuns = [[], []];
     private readonly Queue<string>[] recent = [new(), new()];
     private readonly bool[] done = new bool[2];
@@ -108,6 +108,17 @@ public partial class MainWindow : Window
         foreach (var bulb in p == 0 ? new[] { StageLeft, StageLeft2 } : new[] { StageRight, StageRight2 }) Light(bulb, "#FFF0A5", on);
     }
 
+    private void RefreshPreStageWarnings()
+    {
+        if (PreStageWarning1 is null || PreStageWarning2 is null) return;
+        for (var p = 0; p < 2; p++)
+        {
+            var show = players == 2 && !active && !awaitRelease && !held[p] && held[1 - p] && staged[1 - p];
+            (p == 0 ? PreStageWarning1 : PreStageWarning2).Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            if (show) (p == 0 ? PreStageWarningText1 : PreStageWarningText2).Text = $"{PlayerName(p)}, PRE-STAGE\nHold {KeyLabel(launchKeys[p])}";
+        }
+    }
+
     private void UpdateStaging(double now)
     {
         for (var p = 0; p < players; p++)
@@ -118,6 +129,7 @@ public partial class MainWindow : Window
             (p == 0 ? Detail1 : Detail2).Text = "STAGED • keep holding your key";
         }
         if (!active && Enumerable.Range(0, players).All(p => held[p] && staged[p])) StartRace();
+        RefreshPreStageWarnings();
     }
 
     private void UpdateTreeDescription()
@@ -162,6 +174,7 @@ public partial class MainWindow : Window
             LockSettings(true);
         }
         held[p] = true;
+        RefreshPreStageWarnings();
         stagingDue[p] = TimestampSeconds + StagingHoldSeconds;
         LanePreStage(p, true);
         LaneStage(p, false);
@@ -175,6 +188,7 @@ public partial class MainWindow : Window
         if (p >= players || !held[p]) return;
         held[p] = false;
         staged[p] = false;
+        RefreshPreStageWarnings();
         LanePreStage(p, false);
         LaneStage(p, false);
         if (active) Launch(p);
@@ -323,6 +337,7 @@ public partial class MainWindow : Window
         active = false;
         awaitRelease = held.Any(h => h);
         LockSettings(awaitRelease);
+        RefreshPreStageWarnings();
     }
 
     private void Cancel()
@@ -331,6 +346,7 @@ public partial class MainWindow : Window
         Finish();
         ResetLights();
         Array.Clear(staged);
+        RefreshPreStageWarnings();
         Status.Text = "Cancelled • release your key, then hold to stage";
         Detail1.Text = "Hold your selected key to stage";
         Detail2.Text = players == 2 ? "Hold your selected key to stage" : "Select two players to compete";
@@ -341,6 +357,7 @@ public partial class MainWindow : Window
         if (Player2Panel is null) return;
         players = PlayerMode.SelectedIndex == 1 ? 2 : 1;
         Player2Panel.Opacity = players == 2 ? 1 : .55;
+        RefreshPreStageWarnings();
         Detail2.Text = players == 2 ? "Hold your selected key to stage" : "Select two players to compete";
         Status.Text = "Hold your key to stage";
     }
@@ -409,4 +426,3 @@ public partial class MainWindow : Window
         if (rawShiftInput?.IsAttached != true) HandleShiftInput(player, false);
     }
 }
-

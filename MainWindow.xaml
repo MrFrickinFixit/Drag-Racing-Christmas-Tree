@@ -26,6 +26,7 @@
         <TextBlock x:Name="Result1" TextAlignment="Center" HorizontalAlignment="Stretch" Text="—.———" FontSize="54" FontFamily="Consolas"/>
         <TextBlock x:Name="Delta1" Text="From green: —" TextAlignment="Center" FontFamily="Consolas" FontSize="20" Foreground="#D4E1EC" Margin="0,4,0,0"/>
         <TextBlock x:Name="Detail1" FontSize="16" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Hold your selected key to stage" TextWrapping="Wrap" Margin="0,8,0,18" Foreground="#94A4B9"/>
+        <Border x:Name="PreStageWarning1" Visibility="Collapsed" Background="#553D2209" BorderBrush="#FFC15A" BorderThickness="1" CornerRadius="9" Padding="12" Margin="0,0,0,16"><StackPanel><TextBlock Text="OPPONENT IS STAGED" FontSize="13" FontWeight="Bold" Foreground="#FFD68A" TextAlignment="Center"/><TextBlock x:Name="PreStageWarningText1" FontSize="18" FontWeight="SemiBold" Foreground="#FFF1C8" TextAlignment="Center" TextWrapping="Wrap" Margin="0,6,0,0"/></StackPanel></Border>
         <TextBlock Text="HOLD TO STAGE • RELEASE TO LAUNCH" TextAlignment="Center" Foreground="#F5BE4F" FontSize="11" TextWrapping="Wrap"/>
         <TextBlock x:Name="Stats1" FontSize="20" FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Clean runs: 0" TextWrapping="Wrap" Margin="0,24,0,0" LineHeight="29"/>
         <TextBlock x:Name="History1" FontSize="17" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Recent results appear here." FontFamily="Consolas" Foreground="#94A4B9" Margin="0,16,0,0" LineHeight="29"/>
@@ -116,6 +117,7 @@
         <TextBlock x:Name="Result2" TextAlignment="Center" HorizontalAlignment="Stretch" Text="—.———" FontSize="54" FontFamily="Consolas"/>
         <TextBlock x:Name="Delta2" Text="From green: —" TextAlignment="Center" FontFamily="Consolas" FontSize="20" Foreground="#D4E1EC" Margin="0,4,0,0"/>
         <TextBlock x:Name="Detail2" FontSize="16" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Select two players to compete" TextWrapping="Wrap" Margin="0,8,0,18" Foreground="#94A4B9"/>
+        <Border x:Name="PreStageWarning2" Visibility="Collapsed" Background="#553D2209" BorderBrush="#FFC15A" BorderThickness="1" CornerRadius="9" Padding="12" Margin="0,0,0,16"><StackPanel><TextBlock Text="OPPONENT IS STAGED" FontSize="13" FontWeight="Bold" Foreground="#FFD68A" TextAlignment="Center"/><TextBlock x:Name="PreStageWarningText2" FontSize="18" FontWeight="SemiBold" Foreground="#FFF1C8" TextAlignment="Center" TextWrapping="Wrap" Margin="0,6,0,0"/></StackPanel></Border>
         <TextBlock Text="HOLD TO STAGE • RELEASE TO LAUNCH" TextAlignment="Center" Foreground="#F5BE4F" FontSize="11" TextWrapping="Wrap"/>
         <TextBlock x:Name="Stats2" FontSize="20" FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Clean runs: 0" TextWrapping="Wrap" Margin="0,24,0,0" LineHeight="29"/>
         <TextBlock x:Name="History2" FontSize="17" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Recent results appear here." FontFamily="Consolas" Foreground="#94A4B9" Margin="0,16,0,0" LineHeight="29"/>
@@ -147,14 +149,3 @@
   </Grid>
   </Grid>
 </Window>
-
-
-
-
-
-
-
-
-
-
-

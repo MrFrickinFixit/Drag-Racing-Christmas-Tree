@@ -55,9 +55,21 @@ internal static class Program
         Control<ComboBox>("PlayerMode").SelectedIndex = 1;
         Down(Key.LeftShift);
         Check(!Field<bool>("active") && Lit("PreLeft") && !Lit("StageLeft") && !Lit("StageRight"), "Player 1 stages independently and waits for player 2");
+        AdvanceStaging();
+        Check(Control<FrameworkElement>("PreStageWarning2").Visibility == Visibility.Visible && Control<FrameworkElement>("PreStageWarning1").Visibility == Visibility.Collapsed, "Fully staged player 1 prompts only player 2 to pre-stage");
+        Check(Control<TextBlock>("PreStageWarningText2").Text.Contains("Right Shift"), "Pre-stage warning identifies the racer's selected key");
+        Down(Key.RightShift);
+        Check(Control<FrameworkElement>("PreStageWarning2").Visibility == Visibility.Collapsed, "Warning disappears as soon as player 2 pre-stages");
+        Up(Key.RightShift);
+        Check(Control<FrameworkElement>("PreStageWarning2").Visibility == Visibility.Visible, "Warning returns if the waiting player unstages before the countdown");
         Up(Key.LeftShift);
         Check(!Field<bool>("active") && !Lit("StageLeft") && Field<double?[]>("reactions")[0] is null, "Release before both stage unstages without recording a run");
 
+        Check(Control<FrameworkElement>("PreStageWarning2").Visibility == Visibility.Collapsed, "Warning clears if the staged opponent releases");
+        Down(Key.RightShift); AdvanceStaging();
+        Check(Control<FrameworkElement>("PreStageWarning1").Visibility == Visibility.Visible, "Fully staged player 2 prompts player 1 on their own side");
+        Down(Key.Escape); Up(Key.RightShift);
+        Check(Control<FrameworkElement>("PreStageWarning1").Visibility == Visibility.Collapsed, "Cancel clears the pre-stage warning");
         Control<TextBox>("Name1").Text = "Alex";
         Control<TextBox>("Name2").Text = "Sam";
         Both();
@@ -72,13 +84,13 @@ internal static class Program
         Up(Key.LeftShift);
         Check(Control<TextBlock>("Status").Text == "Alex wins!", "Optional names appear in winner results");
         Check(Control<FrameworkElement>("WinnerBanner").Visibility == Visibility.Visible && Control<TextBlock>("WinnerBannerText").Text.StartsWith("Alex wins!"), "Named two-player winner appears in the banner");
-        Check(Field<System.Windows.Threading.DispatcherTimer>("bannerTimer").Interval == TimeSpan.FromSeconds(2), "Winner banner is configured for two seconds");
+        Check(Field<System.Windows.Threading.DispatcherTimer>("bannerTimer").Interval == TimeSpan.FromSeconds(3), "Winner banner is configured for three seconds");
         var frame = new System.Windows.Threading.DispatcherFrame();
-        var wait = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromMilliseconds(2150) };
+        var wait = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromMilliseconds(3150) };
         wait.Tick += (_, _) => { wait.Stop(); frame.Continue = false; };
         wait.Start();
         System.Windows.Threading.Dispatcher.PushFrame(frame);
-        Check(Control<FrameworkElement>("WinnerBanner").Visibility == Visibility.Collapsed, "Winner banner automatically disappears after two seconds");
+        Check(Control<FrameworkElement>("WinnerBanner").Visibility == Visibility.Collapsed, "Winner banner automatically disappears after three seconds");
         Check(!Lit("Green2") && Lit("Red2") && Lit("Green"), "A fouled lane stays red while clean opponent receives green");
 
         Both();
@@ -208,11 +220,3 @@ internal static class Program
         Console.WriteLine("All checks passed.");
     }
 }
-
-
-
-
-
-
-
-
