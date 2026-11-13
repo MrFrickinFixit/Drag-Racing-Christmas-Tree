@@ -37,3 +37,7 @@ dotnet run --project tests/DragTree.Checks.csproj -c Release
 ```
 
 The executable is in `bin/Release/net10.0-windows/`.
+
+## Installer and releases
+
+See [installer/README.md](installer/README.md) for the self-contained Windows installer, portable ZIP, checksums, and GitHub release workflow.
