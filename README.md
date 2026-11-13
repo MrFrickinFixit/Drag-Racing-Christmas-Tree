@@ -14,7 +14,7 @@ This application is a practice tool, not calibrated track timing equipment. Disp
 
 ## Support development
 
-If you enjoy Drag Tree and would like to support future updates, you can [donate via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=quickd92%40hotmail.com&item_name=Drag%20Tree%20development&currency_code=USD).
+If you enjoy Drag Tree and would like to support future updates, you can [donate via PayPal](https://www.paypal.me/bdiffenbaugh).
 
 Donations are completely optional. Drag Tree remains free to use whether or not you donate.
 
