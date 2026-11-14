@@ -216,6 +216,15 @@ internal static class Program
         var format = typeof(MainWindow).GetMethod("FormatReaction", BindingFlags.NonPublic | BindingFlags.Static)!;
         Check((string)format.Invoke(null, [-.00001])! == "-<0.001", "Sub-millisecond red lights cannot display as a legal zero");
         Check((string)format.Invoke(null, [0.0])! == "0.000", "An exact zero reaction displays the ideal 0.000");
+        var treeFormat = typeof(MainWindow).GetMethod("FormatTreeReaction", BindingFlags.NonPublic | BindingFlags.Static)!;
+        foreach (var baseline in new[] { .5, .4 })
+        {
+            Check((string)treeFormat.Invoke(null, new object[] { -.0001, baseline })! == $"<{baseline:0.000}", "A rounded early launch stays visibly below the perfect tree time");
+            Check((string)treeFormat.Invoke(null, new object[] { -double.Epsilon, baseline })! == $"<{baseline:0.000}", "Any negative release offset remains visibly red even at floating-point limits");
+            Check((string)treeFormat.Invoke(null, new object[] { 0.0, baseline })! == baseline.ToString("0.000"), "An exact perfect launch retains its tree's target time");
+            Check((string)treeFormat.Invoke(null, new object[] { -.01, baseline })! == (baseline - .01).ToString("0.000"), "Clearly early tree reaction times retain their normal numeric display");
+            Check((string)treeFormat.Invoke(null, new object[] { .01, baseline })! == (baseline + .01).ToString("0.000"), "Clean tree reaction times retain their normal numeric display");
+        }
         window.Close();
         app.Shutdown();
         Console.WriteLine("All checks passed.");

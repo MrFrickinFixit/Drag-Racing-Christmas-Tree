@@ -149,6 +149,14 @@ public partial class MainWindow : Window
         ? "-<0.001"
         : reaction.ToString("+0.000;-0.000;0.000");
 
+    private static string FormatTreeReaction(double fromGreen, double treeInterval)
+    {
+        var treeReaction = fromGreen + treeInterval;
+        // Never round an early launch up to a number that looks perfect.
+        if (fromGreen < 0 && Math.Round(treeReaction, 3, MidpointRounding.AwayFromZero) >= treeInterval)
+            return $"<{treeInterval:0.000}";
+        return treeReaction.ToString("0.000");
+    }
     private void Hold(int p)
     {
         if (p >= players || held[p]) return;
@@ -276,12 +284,12 @@ public partial class MainWindow : Window
         done[p] = true;
         Light(p == 0 ? Red1 : Red2, "#FF5267", foul);
         var result = p == 0 ? Result1 : Result2;
-        result.Text = (reaction + interval).ToString("0.000");
+        result.Text = FormatTreeReaction(reaction, interval);
         (p == 0 ? Delta1 : Delta2).Text = $"From green: {FormatReaction(reaction)} s";
         result.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(foul ? "#FF5267" : "#35E399"));
-        (p == 0 ? Detail1 : Detail2).Text = $"{(foul ? "RED LIGHT" : "CLEAN")} • perfect RT {interval:0.000} s";
+        (p == 0 ? Detail1 : Detail2).Text = $"{(foul ? "RED LIGHT" : "CLEAN")} • target RT {interval:0.000} s";
         if (!foul) cleanRuns[p].Add(reaction);
-        AddHistory(p, $"{(foul ? "RED" : "CLEAN")}  RT {reaction + interval:0.000} s\nFrom green {FormatReaction(reaction)} s");
+        AddHistory(p, $"{(foul ? "RED" : "CLEAN")}  RT {FormatTreeReaction(reaction, interval)} s\nFrom green {FormatReaction(reaction)} s");
         if (Enumerable.Range(0, players).All(i => done[i])) CompleteRace();
         else Status.Text = $"{raceNames[p]} finished • waiting for opponent";
     }
@@ -305,13 +313,13 @@ public partial class MainWindow : Window
         else if (clean.Length == 2 && Math.Round(reactions[0]!.Value, 3) == Math.Round(reactions[1]!.Value, 3))
         {
             Status.Text = "Tie • equal reactions to the millisecond";
-            ShowWinnerBanner($"{raceNames[0]} & {raceNames[1]} tie!  RT {reactions[0]!.Value + interval:0.000} s (from green {FormatReaction(reactions[0]!.Value)} s)");
+            ShowWinnerBanner($"{raceNames[0]} & {raceNames[1]} tie!  RT {FormatTreeReaction(reactions[0]!.Value, interval)} s (from green {FormatReaction(reactions[0]!.Value)} s)");
         }
         else
         {
             var winner = clean.MinBy(i => reactions[i]!.Value);
             Status.Text = $"{raceNames[winner]} wins!";
-            ShowWinnerBanner($"{raceNames[winner]} wins!  RT {reactions[winner]!.Value + interval:0.000} s (from green {FormatReaction(reactions[winner]!.Value)} s)");
+            ShowWinnerBanner($"{raceNames[winner]} wins!  RT {FormatTreeReaction(reactions[winner]!.Value, interval)} s (from green {FormatReaction(reactions[winner]!.Value)} s)");
         }
     }
 
