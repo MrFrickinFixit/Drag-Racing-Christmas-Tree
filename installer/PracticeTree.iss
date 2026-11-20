@@ -1,0 +1,70 @@
+; Build with installer/build.ps1. Inno Setup 6.3+ or 7 is supported.
+#ifndef AppVersion
+  #define AppVersion "1.1.0"
+#endif
+#ifndef FileVersion
+  #define FileVersion "1.1.0.0"
+#endif
+#ifndef PublishDir
+  #error PublishDir must point to the self-contained publish directory.
+#endif
+#ifndef InstallerOutputDir
+  #define InstallerOutputDir SourcePath + "..\artifacts"
+#endif
+
+[Setup]
+AppId={{57A547F4-6D3E-4B71-9E7E-B0C9B2C2B496}
+AppName=Practice Tree
+AppVersion={#AppVersion}
+AppVerName=Practice Tree {#AppVersion}
+AppPublisher=MrFrickinFixit
+VersionInfoVersion={#FileVersion}
+VersionInfoProductName=Practice Tree
+VersionInfoDescription=Practice Tree reaction trainer installer
+DefaultDirName={localappdata}\Programs\Practice Tree
+DefaultGroupName=Practice Tree
+DisableProgramGroupPage=yes
+PrivilegesRequired=lowest
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
+MinVersion=10.0.19045
+WizardStyle=modern
+SetupIconFile=..\Assets\practice-tree.ico
+OutputDir={#InstallerOutputDir}
+OutputBaseFilename=PracticeTree-{#AppVersion}-win-x64-Setup
+Compression=lzma2
+SolidCompression=yes
+SetupLogging=yes
+UninstallDisplayIcon={app}\PracticeTree.exe
+CloseApplications=yes
+RestartApplications=no
+DisableDirPage=auto
+UsePreviousAppDir=yes
+
+[Languages]
+Name: "english"; MessagesFile: "compiler:Default.isl"
+
+[Tasks]
+Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Shortcuts:"; Flags: unchecked
+
+[Files]
+Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.pdb,keys.json"
+
+[InstallDelete]
+; Exact legacy files only: keep shared runtime files and racer preferences.
+Type: files; Name: "{app}\DragTree.exe"
+Type: files; Name: "{app}\DragTree.dll"
+Type: files; Name: "{app}\DragTree.deps.json"
+Type: files; Name: "{app}\DragTree.runtimeconfig.json"
+Type: files; Name: "{autoprograms}\Drag Tree.lnk"
+Type: files; Name: "{autodesktop}\Drag Tree.lnk"
+
+[Icons]
+Name: "{autoprograms}\Practice Tree"; Filename: "{app}\PracticeTree.exe"; WorkingDir: "{app}"
+Name: "{autodesktop}\Practice Tree"; Filename: "{app}\PracticeTree.exe"; WorkingDir: "{app}"; Tasks: desktopicon
+
+[Run]
+Filename: "{app}\PracticeTree.exe"; Description: "Launch Practice Tree"; Flags: nowait postinstall skipifsilent
+
+; Preferences remain in the legacy %LOCALAPPDATA%\DragTree folder.
+; Uninstall intentionally preserves the racer's selected keys.

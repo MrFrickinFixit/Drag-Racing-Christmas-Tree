@@ -3,13 +3,14 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 
-namespace DragTree;
+namespace PracticeTree;
 
 public partial class MainWindow
 {
     private readonly Key[] launchKeys = [Key.LeftShift, Key.RightShift];
     private sealed record KeyOption(Key Key, string Label);
     private sealed record SavedKeys(string Player1, string Player2);
+    // Keep the legacy preferences directory so upgrades preserve racer controls.
     private static readonly string SettingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DragTree", "keys.json");
     private static readonly Key[] AllowedKeys = [Key.LeftShift, Key.RightShift, Key.Space, Key.LeftCtrl, Key.RightCtrl, Key.Left, Key.Right, Key.Up, Key.Down,
         .. Enumerable.Range((int)Key.A, 26).Select(k => (Key)k),
@@ -103,4 +104,3 @@ public partial class MainWindow
         Keyboard.Focus(RaceSurface);
     }
 }
-

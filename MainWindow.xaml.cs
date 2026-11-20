@@ -7,7 +7,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace DragTree;
+namespace PracticeTree;
 
 public partial class MainWindow : Window
 {

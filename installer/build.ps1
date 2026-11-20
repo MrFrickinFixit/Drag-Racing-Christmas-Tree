@@ -36,22 +36,22 @@ function Invoke-Dotnet([string[]]$Arguments) {
     if ($LASTEXITCODE -ne 0) { throw "dotnet failed (exit $LASTEXITCODE): $($Arguments -join ' ')" }
 }
 
-Invoke-Dotnet -Arguments @('run', '--project', (Join-Path $repo 'tests\DragTree.Checks.csproj'), '-c', 'Release', '--no-launch-profile')
+Invoke-Dotnet -Arguments @('run', '--project', (Join-Path $repo 'tests\PracticeTree.Checks.csproj'), '-c', 'Release', '--no-launch-profile')
 New-Item -ItemType Directory -Path $OutputRoot -Force | Out-Null
 $publish = Join-Path $OutputRoot 'publish'
-Invoke-Dotnet -Arguments @('publish', (Join-Path $repo 'DragTree.csproj'), '-c', 'Release', '-r', 'win-x64', '--self-contained', 'true', '-o', $publish, "-p:Version=$Version", '-p:PublishTrimmed=false', '-p:DebugType=None', '-p:DebugSymbols=false')
-$runtime = Get-Content -LiteralPath (Join-Path $publish 'DragTree.runtimeconfig.json') -Raw | ConvertFrom-Json
+Invoke-Dotnet -Arguments @('publish', (Join-Path $repo 'PracticeTree.csproj'), '-c', 'Release', '-r', 'win-x64', '--self-contained', 'true', '-o', $publish, "-p:Version=$Version", '-p:PublishTrimmed=false', '-p:DebugType=None', '-p:DebugSymbols=false')
+$runtime = Get-Content -LiteralPath (Join-Path $publish 'PracticeTree.runtimeconfig.json') -Raw | ConvertFrom-Json
 if (-not ($runtime.runtimeOptions.PSObject.Properties.Name -contains 'includedFrameworks')) { throw 'Publish is not self-contained.' }
-foreach ($required in @('DragTree.exe', 'DragTree.dll', 'coreclr.dll', 'hostfxr.dll', 'PresentationFramework.dll')) {
+foreach ($required in @('PracticeTree.exe', 'PracticeTree.dll', 'coreclr.dll', 'hostfxr.dll', 'PresentationFramework.dll')) {
     if (-not (Test-Path -LiteralPath (Join-Path $publish $required))) { throw "Missing published file: $required" }
 }
 Copy-Item -LiteralPath (Join-Path $repo 'README.md') -Destination (Join-Path $publish 'README.md')
 if (Test-Path -LiteralPath (Join-Path $repo 'docs')) { Copy-Item -LiteralPath (Join-Path $repo 'docs') -Destination (Join-Path $publish 'docs') -Recurse }
-$zip = Join-Path $OutputRoot "DragTree-$Version-win-x64.zip"
+$zip = Join-Path $OutputRoot "PracticeTree-$Version-win-x64.zip"
 Compress-Archive -Path (Join-Path $publish '*') -DestinationPath $zip -CompressionLevel Optimal
-& $IsccPath "/DAppVersion=$Version" "/DFileVersion=$numericVersion.0" "/DPublishDir=$publish" "/DInstallerOutputDir=$OutputRoot" (Join-Path $PSScriptRoot 'DragTree.iss')
+& $IsccPath "/DAppVersion=$Version" "/DFileVersion=$numericVersion.0" "/DPublishDir=$publish" "/DInstallerOutputDir=$OutputRoot" (Join-Path $PSScriptRoot 'PracticeTree.iss')
 if ($LASTEXITCODE -ne 0) { throw "Inno Setup compilation failed: $LASTEXITCODE" }
-$setup = Join-Path $OutputRoot "DragTree-$Version-win-x64-Setup.exe"
+$setup = Join-Path $OutputRoot "PracticeTree-$Version-win-x64-Setup.exe"
 if (-not (Test-Path -LiteralPath $setup)) { throw 'Installer output was not created.' }
 $lines = foreach ($file in @($setup, $zip)) {
     $hash = (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant()

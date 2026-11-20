@@ -2,7 +2,7 @@ using System.Windows.Input;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 
-namespace DragTree;
+namespace PracticeTree;
 
 // Foreground-only raw keyboard input preserves each Shift key's make/break events.
 internal sealed class RawShiftInput(Action<int, bool> onShift) : IDisposable
@@ -89,4 +89,3 @@ internal sealed class RawShiftInput(Action<int, bool> onShift) : IDisposable
     [DllImport("user32.dll", SetLastError = true)]
     private static extern uint GetRawInputData(IntPtr input, uint command, IntPtr data, ref uint size, uint headerSize);
 }
-

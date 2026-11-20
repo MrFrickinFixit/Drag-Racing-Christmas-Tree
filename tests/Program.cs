@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using DragTree;
+using PracticeTree;
 
 internal static class Program
 {
@@ -18,6 +18,12 @@ internal static class Program
         var app = new App();
         app.InitializeComponent();
         var window = new MainWindow();
+        if (typeof(MainWindow).Assembly.GetName().Name != "PracticeTree" || !window.Title.StartsWith("Practice Tree"))
+            throw new Exception("Practice Tree assembly/window branding mismatch");
+        var savedPath = (string)typeof(MainWindow).GetField("SettingsPath", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null)!;
+        if (!savedPath.EndsWith(System.IO.Path.Combine("DragTree", "keys.json"), StringComparison.OrdinalIgnoreCase))
+            throw new Exception("Legacy racer preferences path changed during rename");
+        Console.WriteLine("PASS: Practice Tree branding and legacy racer-settings compatibility");
         using var source = new System.Windows.Interop.HwndSource(new System.Windows.Interop.HwndSourceParameters("Reaction input checks") { Width = 1, Height = 1, WindowStyle = 0 });
         const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly;
         object? Call(string name, params object?[] args) => typeof(MainWindow).GetMethod(name, flags)!.Invoke(window, args);
@@ -163,7 +169,7 @@ internal static class Program
         Both();
         Call("OnDeactivated", null, EventArgs.Empty);
         Check(!Field<bool>("active") && !Field<bool[]>("held").Any(x => x), "Focus loss cancels and clears held-key state");
-        var rawType = typeof(MainWindow).Assembly.GetType("DragTree.RawShiftInput")!;
+        var rawType = typeof(MainWindow).Assembly.GetType("PracticeTree.RawShiftInput")!;
         var raw = Activator.CreateInstance(rawType, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null,
             new object[] { new Action<int, bool>((p, isUp) => Call("HandleShiftInput", p, !isUp)) }, null)!;
         var processRaw = rawType.GetMethod("ProcessKeyboard", BindingFlags.Instance | BindingFlags.NonPublic)!;

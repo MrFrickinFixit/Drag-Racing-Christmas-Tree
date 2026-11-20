@@ -1,22 +1,22 @@
-# Drag Tree
+# Practice Tree
 
-![Drag Tree main window showing the night theme and two-player mode](docs/main-window.png)
+![Practice Tree main window showing the night theme and two-player mode](docs/main-window.png)
 
-WPF reaction trainer for Windows and .NET 10. Run `dotnet run --project DragTree.csproj`.
+WPF reaction trainer for Windows and .NET 10. Run `dotnet run --project PracticeTree.csproj`.
 
 Choose Sportsman or Pro, then single-player or two-player mode. Optional racer names appear in result messages. Press Enter or click outside a name box after editing.
 
 ## Free to use
 
-Drag Tree is free to download and use. No payment, subscription, or donation is required to use any feature. Optional donations help support continued development.
+Practice Tree is free to download and use. No payment, subscription, or donation is required to use any feature. Optional donations help support continued development.
 
 This application is a practice tool, not calibrated track timing equipment. Display and input latency can affect results.
 
 ## Support development
 
-If you enjoy Drag Tree and would like to support future updates, you can [donate via PayPal](https://www.paypal.me/bdiffenbaugh).
+If you enjoy Practice Tree and would like to support future updates, you can [donate via PayPal](https://www.paypal.me/bdiffenbaugh).
 
-Donations are completely optional. Drag Tree remains free to use whether or not you donate.
+Donations are completely optional. Practice Tree remains free to use whether or not you donate.
 
 ## Controls
 
@@ -46,8 +46,8 @@ An absolute monotonic stopwatch schedule prevents delays accumulating between bu
 ## Build and checks
 
 ```powershell
-dotnet build DragTree.csproj -c Release
-dotnet run --project tests/DragTree.Checks.csproj -c Release
+dotnet build PracticeTree.csproj -c Release
+dotnet run --project tests/PracticeTree.Checks.csproj -c Release
 ```
 
 The executable is in `bin/Release/net10.0-windows/`.
@@ -57,3 +57,9 @@ The executable is in `bin/Release/net10.0-windows/`.
 See [installer/README.md](installer/README.md) for the self-contained Windows installer, portable ZIP, checksums, and GitHub release workflow.
 
 In two-player mode, when one racer is fully staged and the other has not pre-staged, an amber warning appears on the waiting racer's panel with their name and configured key. It clears when they pre-stage, the opponent unstages, or the race is canceled.
+
+## Upgrading from Drag Tree
+
+Practice Tree is the renamed application. The installer retains its existing upgrade ID and removes the old Drag Tree launchers and shortcuts. Existing installations may retain their original installation folder. Racer key preferences remain in the legacy `%LOCALAPPDATA%/DragTree/keys.json` location for compatibility.
+
+Repository: https://github.com/MrFrickinFixit/Practice-Tree

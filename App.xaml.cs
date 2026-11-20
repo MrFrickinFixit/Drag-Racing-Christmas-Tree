@@ -1,3 +1,3 @@
 using System.Windows;
-namespace DragTree;
+namespace PracticeTree;
 public partial class App : Application { }

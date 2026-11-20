@@ -5,9 +5,11 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.4</Version>
-    <Product>Drag Tree</Product>
-    <ApplicationIcon>Assets\drag-tree.ico</ApplicationIcon>
+    <Version>1.1.0</Version>
+    <Product>Practice Tree</Product>
+    <AssemblyName>PracticeTree</AssemblyName>
+    <RootNamespace>PracticeTree</RootNamespace>
+    <ApplicationIcon>Assets\practice-tree.ico</ApplicationIcon>
     <Description>Drag racing reaction-time trainer</Description>
     <DefaultItemExcludes>$(DefaultItemExcludes);artifacts/**;.tools/**</DefaultItemExcludes>
   </PropertyGroup>
@@ -15,6 +17,6 @@
     <Compile Remove="tests/**/*.cs" />
     <Page Remove="tests/**/*.xaml" />
     <Resource Include="Assets/night-dragstrip.png" />
-    <Resource Include="Assets/drag-tree.ico" />
+    <Resource Include="Assets/practice-tree.ico" />
   </ItemGroup>
 </Project>
